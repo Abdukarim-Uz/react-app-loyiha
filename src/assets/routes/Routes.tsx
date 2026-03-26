@@ -11,6 +11,8 @@ const NotFound = lazy(() => import("../pages/notFound/NotFound"))
 
 const Detail = lazy(() => import("../pages/detail/Detail"))
 
+const CategoryDetail = lazy(() => import("../pages/categoryDetail/categoryDetail"))
+
 export const routes: RouteObject[] = [
     {
         path: "/",
@@ -27,6 +29,9 @@ export const routes: RouteObject[] = [
             },
             {
                 path: "detail/:id", element: <Detail />
+            },
+            {
+                path: "category-detail/:id", element: <CategoryDetail />
             }
         ]
     },
