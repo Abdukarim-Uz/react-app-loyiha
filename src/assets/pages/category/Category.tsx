@@ -1,7 +1,8 @@
-import { useEffect, useState, type SubmitEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type SubmitEvent } from "react";
 import CategoryMaps from "../../components/categoryMaps/CategoryMaps";
 import CategoryModal from "../../components/categoryModal/CategoryModal";
 import { toast } from "react-toastify";
+import { CiSearch } from "react-icons/ci";
 
 export interface ICategory {
     id: string;
@@ -14,6 +15,24 @@ function Category() {
     const [modalCardId, setModalCardId] = useState<string>("");
 
     const [categoryPage, setCategoryPage] = useState<ICategory[]>([]);
+
+
+
+    const [searchCategoryTerm, setSearchCategoryTerm] = useState<string>("")
+
+
+    const searchItem = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchCategoryTerm(event.target.value);
+
+    }
+
+    const filteredCategories = categoryPage.filter((item) =>
+        item.nomi.toLowerCase().includes(searchCategoryTerm.toLowerCase()) ||
+        item.id.toLowerCase().includes(searchCategoryTerm.toLowerCase())
+    );
+
+
+
 
 
     const handlerCategorySubmit = (e: SubmitEvent<HTMLFormElement>) => {
@@ -77,13 +96,21 @@ function Category() {
 
 
 
+            <div className="w-full flex items-center mx-auto rounded-sm duration-120    hover:bg-white/20 cursor-pointer *:cursor-pointer   h-14 px-10  justify-end gap-2 mb-5">
+                <input onChange={searchItem} type="text" placeholder="search..." className=" w-full  px-2 py-2 outline-0 " />
+                <button className=" p-1" ><CiSearch size={25} /></button>
+            </div>
+
+
+
+
             <div className="w-full grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
                 {
-                    (categoryPage.length === 0) ? (<h1 className="text-center col-span-full">Kategoriyalar mavjud emas...</h1>) : (
+                    (filteredCategories.length === 0) ? (<h1 className="text-center col-span-full">Kategoriyalar mavjud emas...</h1>) : (
 
 
-                        categoryPage.map((item: ICategory, index: number) => (
+                        filteredCategories.map((item: ICategory, index: number) => (
                             <CategoryMaps setModalCardId={setModalCardId} setShowCategoryModal={setShowCategoryModal} hendlerCategoryDelete={hendlerCategoryDelete} key={index} item={item} />
                         ))
                     )

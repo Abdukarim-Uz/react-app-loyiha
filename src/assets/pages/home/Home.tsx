@@ -2,7 +2,7 @@
 function Home() {
   return (
     <div  >
-      <h1 className="text-center text-4xl" >Home sahifas </h1>
+      <h1 className="text-center text-4xl" >Home sahifasi </h1>
     </div>
   )
 }

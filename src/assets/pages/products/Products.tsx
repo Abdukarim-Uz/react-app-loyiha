@@ -1,8 +1,9 @@
-import { useState, useEffect, type SubmitEvent } from "react";
+import { useState, useEffect, type SubmitEvent, type ChangeEvent } from "react";
 import { toast } from "react-toastify";
 import CardMaps from "../../components/maps/CardMaps";
 import { nanoid } from "nanoid";
 import Modal from "../../components/modal/Modal";
+import { CiSearch } from "react-icons/ci";
 
 export interface IProducts {
     id: string;
@@ -24,7 +25,21 @@ function Products() {
     const [showModal, setSHowmodal] = useState<boolean>(false)
     const [products, setProducts] = useState<IProducts[]>([]);
 
+
+    const [searchTerm, setSearchTerm] = useState<string>("")
+
     const [modalCardId, setCardModalId] = useState<string>("")
+
+    const searchItem = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+
+        // setProducts(products.filter((item)=> item.productsName.toLowerCase().includes(event.target.value.toLowerCase()) || item.categoryId.toLowerCase))
+    }
+
+    const filteredProducts = products.filter((item) =>
+        item.productsName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.categoryId.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -70,6 +85,7 @@ function Products() {
 
     return (
         <div className="  w-full mx-auto min-h-screen p-10 h-auto">
+
 
             {
                 showModal && <Modal setProducts={setProducts} modalCardId={modalCardId} setSHowmodal={setSHowmodal} />
@@ -146,13 +162,17 @@ function Products() {
                 </button>
             </form>
 
+            <div className="w-full flex items-center mx-auto rounded-sm duration-120    hover:bg-white/20 cursor-pointer *:cursor-pointer   h-14 px-10  justify-end gap-2 mb-5">
+                <input onChange={searchItem} type="text" placeholder="search..." className=" w-full  px-2 py-2 outline-0 " />
+                <button className=" p-1" ><CiSearch size={25} /></button>
+            </div>
 
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {products.length === 0 ? (
+                {filteredProducts.length === 0 ? (
                     <h1 className="text-center col-span-full">Mahsulotlar mavjud emas...</h1>
                 ) : (
-                    products.map((item) => <CardMaps setCardModalId={setCardModalId} setSHowmodal={setSHowmodal} handlerDelete={handlerDelete} key={item.id} item={item} />)
+                    filteredProducts.map((item) => <CardMaps setCardModalId={setCardModalId} setSHowmodal={setSHowmodal} handlerDelete={handlerDelete} key={item.id} item={item} />)
                 )}
             </div>
 
