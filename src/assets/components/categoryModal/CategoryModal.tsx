@@ -1,6 +1,7 @@
 import { useEffect, useState, type Dispatch, type SetStateAction, type SubmitEvent } from "react"
 import { MdArrowBack } from "react-icons/md"
 import type { ICategory } from "../../pages/category/Category";
+import { toast } from "react-toastify";
 
 interface ICategoryModal {
     setShowCategoryModal: Dispatch<SetStateAction<boolean>>,
@@ -32,6 +33,7 @@ function Modal({ setShowCategoryModal, modalCardId, setCategoryPage }: ICategory
         setCategoryPage(newFullList as ICategory[]);
 
         setShowCategoryModal(false);
+        toast.info("Kategoriya muvaffaqiyatli yangilandi!")
     }
 
 
@@ -49,12 +51,12 @@ function Modal({ setShowCategoryModal, modalCardId, setCategoryPage }: ICategory
 
                 <button onClick={() => setShowCategoryModal(false)} className="w-29 gap-2 rounded-sm p-2 self-end bg-red-500 hover:bg-red-400 cursor-pointer flex items-center justify-center " ><MdArrowBack /> chiqish </button>
 
-                <form onSubmit={handlerSubmitCategory} className="border w-[90%]  mx-auto flex flex-col gap-4 p-5 rounded-md mb-10">
+                <form onSubmit={handlerSubmitCategory} className=" bg-white/10 *:hover:bg-white/20 *:p-2 *:rounded-sm *:cursor-pointer cursor-pointer  w-[90%]  mx-auto flex flex-col gap-4 p-5 rounded-md mb-10">
                     <label>
                         Nomini o'zgartirish:
                         <input
                             defaultValue={editItem?.nomi}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="text"
                             required
                             name="nomi"
@@ -64,7 +66,7 @@ function Modal({ setShowCategoryModal, modalCardId, setCategoryPage }: ICategory
                         Kategoriya unikal raqamini o'zgartirish:
                         <input
                             defaultValue={editItem?.id}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="text"
                             required
                             name="id"

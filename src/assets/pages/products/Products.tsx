@@ -1,4 +1,4 @@
-import { useState, useEffect, type SubmitEvent} from "react";
+import { useState, useEffect, type SubmitEvent } from "react";
 import { toast } from "react-toastify";
 import CardMaps from "../../components/maps/CardMaps";
 import { nanoid } from "nanoid";
@@ -55,8 +55,11 @@ function Products() {
 
     const handlerDelete = (id: string) => {
 
-        const updetedProducts = products.filter((item) => item.id !== id)
-        setProducts(updetedProducts)
+
+        const updated = products.filter((item: IProducts) => item.id !== id);
+        setProducts(updated);
+        localStorage.setItem("storagerProducts", JSON.stringify(updated));
+        toast.info("Mahsulot o'chirildi");
 
     }
 
@@ -66,18 +69,18 @@ function Products() {
     }, []);
 
     return (
-        <div className="border  w-full mx-auto min-h-screen p-10 h-auto">
+        <div className="  w-full mx-auto min-h-screen p-10 h-auto">
 
             {
                 showModal && <Modal setProducts={setProducts} modalCardId={modalCardId} setSHowmodal={setSHowmodal} />
             }
-            <form onSubmit={handleSubmit} className="border w-[35%] mx-auto flex flex-col gap-4 p-5 rounded-md mb-10">
+            <form onSubmit={handleSubmit} className="*:hover:bg-white/20 bg-white/10 *:duration-120 *:rounded-sm *:p-1 w-[35%] mx-auto flex flex-col gap-4 p-5 rounded-md mb-10">
                 <label>
                     Nomi:
                     <input
                         value={nomi}
                         onChange={(e) => setNomi(e.target.value)}
-                        className="border w-full p-1"
+                        className=" w-full p-1"
                         type="text"
                         required
                         name="nomi"
@@ -88,7 +91,7 @@ function Products() {
                     <input
                         value={categoryId}
                         onChange={(e) => setCategoryId(e.target.value)}
-                        className="border w-full p-1"
+                        className=" w-full p-1"
                         type="text"
                         required
                         name="categoryId"
@@ -99,7 +102,7 @@ function Products() {
                     <input
                         value={price}
                         onChange={(e) => setPrice(Number(e.target.value))}
-                        className="border w-full p-1"
+                        className=" w-full p-1"
                         type="number"
                         required
                         min={1}
@@ -111,7 +114,7 @@ function Products() {
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="border min-w-full max-w-full min-h-20 max-h-20 w-full p-1"
+                        className=" min-w-full max-w-full min-h-20 max-h-20 w-full p-1"
                         required
                         name="description"
                     ></textarea>
@@ -121,7 +124,7 @@ function Products() {
                     <input
                         value={createdAt}
                         onChange={(e) => setCreatedAt(e.target.value)}
-                        className="border w-full p-1"
+                        className=" w-full p-1"
                         type="date"
                         required
                         name="createdAt"
@@ -132,7 +135,7 @@ function Products() {
                     <input
                         value={updatedAt}
                         onChange={(e) => setUpdatedAt(e.target.value)}
-                        className="border w-full p-1"
+                        className=" w-full p-1"
                         type="date"
                         required
                         name="updatedAt"

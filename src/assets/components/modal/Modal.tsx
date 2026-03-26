@@ -1,6 +1,7 @@
 import { useEffect, useState, type Dispatch, type SetStateAction, type SubmitEvent } from "react"
 import { MdArrowBack } from "react-icons/md"
 import type { IProducts } from "../../pages/products/Products"
+import { toast } from "react-toastify"
 
 interface IModal {
     setSHowmodal: Dispatch<SetStateAction<boolean>>,
@@ -31,6 +32,8 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
         localStorage.setItem("storagerProducts", JSON.stringify(updatedProducts));
         setProducts(updatedProducts)
         setSHowmodal(false);
+        event.currentTarget.reset();
+        toast.success("Mahsulot muvaffaqiyatli o'zgartirildi!")
     }
 
 
@@ -40,7 +43,6 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
         setModalItem(JSON.parse(localStorage.getItem("storagerProducts") || "[]").find((item: IProducts) => item.id === modalCardId))
     }, [])
 
-    // console.log(modalItem?.createdAt ? new Date(modalItem?.createdAt).toLocaleDateString() : "ishlamadi");
 
     if (!modalItem) {
         return <div className="fixed  text-white">Yuklanmoqda...</div>
@@ -52,12 +54,12 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
 
                 <button onClick={() => setSHowmodal(false)} className="w-29 gap-2 rounded-sm p-2 self-end bg-red-500 hover:bg-red-400 cursor-pointer flex items-center justify-center " ><MdArrowBack /> chiqish </button>
 
-                <form onSubmit={handlerEdit} className="border w-[90%]  mx-auto flex flex-col gap-4 p-5 rounded-md mb-10">
+                <form onSubmit={handlerEdit} className="bg-white/10 *:hover:bg-white/20 *:p-2 *:rounded-sm *:cursor-pointer cursor-pointer w-[90%]  mx-auto flex flex-col gap-4 p-5 rounded-md mb-10">
                     <label>
                         Nomini o'zgartirish:
                         <input
                             defaultValue={modalItem.productsName}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="text"
                             required
                             name="productsName"
@@ -67,7 +69,7 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
                         Kategoriya unikal raqamini o'zgartirish:
                         <input
                             defaultValue={modalItem.categoryId}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="text"
                             required
                             name="categoryId"
@@ -77,7 +79,7 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
                         Narxini o'zgartirish:
                         <input
                             defaultValue={modalItem.price}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="number"
                             required
                             min={1}
@@ -88,7 +90,7 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
                         Tavsifini o'zgartirish:
                         <textarea
                             defaultValue={modalItem.description}
-                            className="border min-w-full max-w-full min-h-20 max-h-20 w-full p-1"
+                            className=" min-w-full max-w-full min-h-20 max-h-20 w-full p-1"
                             required
                             name="description"
                         ></textarea>
@@ -97,7 +99,7 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
                         Yaratilgan vaqtini o'zgartirish:
                         <input
                             defaultValue={modalItem?.createdAt ? String(modalItem?.createdAt) : ""}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="date"
                             required
                             name="createdAt"
@@ -107,7 +109,7 @@ function Modal({ setSHowmodal, modalCardId, setProducts }: IModal) {
                         Yangilangan vaqti o'zgartirish:
                         <input
                             defaultValue={modalItem?.updatedAt ? String(modalItem?.updatedAt) : ""}
-                            className="border w-full p-1"
+                            className=" w-full p-1"
                             type="date"
                             required
                             name="updatedAt"

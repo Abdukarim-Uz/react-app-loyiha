@@ -20,7 +20,7 @@ function CardMaps({ item, handlerDelete, setCardModalId, setSHowmodal }: IcardMa
 
     return (
 
-        <div className="w-90 border h-100 flex gap-6 justify-between hover:bg-white/5 rounded-2xl  duration-150 flex-col cursor-pointer py-4 px-6 *:cursor-pointer" >
+        <div className="w-90  h-100 flex gap-6 justify-between hover:bg-white/5 rounded-2xl  duration-150 flex-col cursor-pointer py-4 px-6 *:cursor-pointer" >
 
             <h1 className=" text-[30px] " >{item?.productsName}</h1>
             <p className=" text-[13px] h-40 " >{item?.description}</p>

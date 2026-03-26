@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="bg-slate-900 relative w-full min-h-screen h-auto text-white font-mono mx-auto " >
-      <div className="container px-20 py-10 border mx-auto " >
+      <div className="container px-20 py-10  mx-auto " >
         <Navbar />
         {element}
       </div>
